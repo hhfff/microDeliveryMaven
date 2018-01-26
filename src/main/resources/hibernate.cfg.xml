@@ -53,5 +53,6 @@ Contributor(s):
     <!-- List of XML mapping files -->
     <!-- mapping resource="com/nyp/testing/Posting.hbm.xml"/-->
     <mapping class="enterprise.Entity.Item"/>
+    <mapping class="enterprise.Entity.Store"/>
   </session-factory>
 </hibernate-configuration>

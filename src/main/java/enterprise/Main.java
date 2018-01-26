@@ -1,14 +1,12 @@
 package enterprise;
 
-import enterprise.Entity.EnterpriseDao;
+import enterprise.Entity.StoreDao;
 import enterprise.Entity.Item;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @Named("enterpriseMain")
 @SessionScoped
@@ -17,15 +15,13 @@ public class Main implements Serializable{
     private Item selectItem;
     private boolean firstTimeCall=true;
 
+
     public Item getSelectItem() {
         return selectItem;
     }
 
     public void setSelectItem(Item selectItem) {
         this.selectItem = selectItem;
-
-
-
     }
 
     public Main(){
@@ -34,8 +30,8 @@ public class Main implements Serializable{
     }
 
     public void load(){
-        EnterpriseDao e=new EnterpriseDao();
-        itemList=e.getAllItem();
+        StoreDao e=new StoreDao();
+        //itemList=e.getAllItem();
 
 
     }
@@ -48,7 +44,7 @@ public class Main implements Serializable{
         this.itemList = itemList;
     }
     public void update(){
-        EnterpriseDao dao=new EnterpriseDao();
+        StoreDao dao=new StoreDao();
 
         dao.update(selectItem);
 
@@ -58,7 +54,7 @@ public class Main implements Serializable{
 
         itemList.remove(selectItem);
 
-        EnterpriseDao dao=new EnterpriseDao();
+        StoreDao dao=new StoreDao();
 
         dao.deleteItem(selectItem);
             //load();
@@ -66,6 +62,9 @@ public class Main implements Serializable{
 
        //
 
+
+    }
+    public void newItem(){
 
     }
     private String s;

@@ -1,35 +1,33 @@
 package enterprise.Entity;
 
 import javax.inject.Named;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Named
 @Entity
-@Table(name="enterpriseItem")
+@Table(name="storeItem")
 public class Item {
     @Id
-    @Column(name = "id")
+    @Column(name="itemId")
     private int id;
-    @Column(name = "item_name")
+    @Column(name = "itemName")
     private String name;
     @Column(name = "description")
-    private String descrption;
+    private String description;
     @Column(name = "price")
     private double price;
-    @Column(name = "item_type")
+    @Column(name = "itemType")
     private String type;
     @Column(name = "pic")
     private String picture;
+    @Column(name = "storeId")
+    private int storeId;
+
+
+
 
     public Item(){}
-    public Item(String name, String descrption, double price, String pic){
-        this.name=name;
-        this.descrption=descrption;
 
-    }
     public int getId() {
         return id;
     }
@@ -46,12 +44,12 @@ public class Item {
         this.name = name;
     }
 
-    public String getDescrption() {
-        return descrption;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescrption(String descrption) {
-        this.descrption = descrption;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public double getPrice() {
@@ -76,5 +74,13 @@ public class Item {
 
     public void setPicture(String picture) {
         this.picture = picture;
+    }
+
+    public int getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(int storeId) {
+        this.storeId = storeId;
     }
 }

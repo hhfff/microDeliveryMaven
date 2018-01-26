@@ -15,21 +15,13 @@
         <ui:define name="content">
             <b:container style="padding-top: 65px">
                 <b:row>
-                    <b:column colMd="12">
+                    <b:column colMd="8" offset="2">
                         <h:form>
-                            <h:panelGrid columns="2">
-                                <h:outputText value="Name"></h:outputText>
-                                <h:inputText value="#{addItem.name}" required="true"></h:inputText>
-                            </h:panelGrid>
-                            <h:panelGrid columns="2">
-                                <h:outputText value="Price"></h:outputText>
-                                <h:inputText value="#{addItem.price}" required="true"></h:inputText>
-                            </h:panelGrid>
-                            <h:panelGrid columns="2">
-                                <h:outputText value="Picture"></h:outputText>
-                                <h:inputText value="#{addItem.pic}"></h:inputText>
-                            </h:panelGrid>
-                            <p:selectOneMenu value="#{addItem.type}">
+
+                            <p:outputLabel value="Name"></p:outputLabel>
+                            <b:inputText value="#{addItem.name}"   ></b:inputText>
+                            <p:outputLabel value="Type"></p:outputLabel>
+                            <b:selectOneMenu value="#{addItem.type}" >
                                 <f:selectItem itemValue="food" itemLabel="Food" />
                                 <f:selectItem itemValue="beverage" itemLabel="Beverage" />
                                 <f:selectItem itemValue="electronic" itemLabel="Electronic" />
@@ -38,14 +30,18 @@
                                 <f:selectItem itemValue="stationary" itemLabel="Stationary" />
                                 <f:selectItem itemValue="game" itemLabel="Game" />
                                 <f:selectItem itemValue="medicine" itemLabel="Medicine" />
-
-
-                            </p:selectOneMenu>
+                            </b:selectOneMenu>
+                            <p:outputLabel value="Price"></p:outputLabel>
+                            <b:inputText value="#{addItem.price}"  required="true" ><f:convertNumber pattern="#0.00" /></b:inputText>
+                            <p:outputLabel value="Description"></p:outputLabel>
+                            <b:inputTextarea value="#{addItem.description}" ></b:inputTextarea>
                             <h:panelGrid columns="2">
-                                <h:outputText value="Description"></h:outputText>
-                                <h:inputTextarea value="#{addItem.description}" ></h:inputTextarea>
+                                <h:outputText value="Picture"></h:outputText>
+                                <h:inputText value="#{addItem.pic}"></h:inputText>
                             </h:panelGrid>
-                            <p:commandButton value="Submit" action="#{addItem.add}"></p:commandButton>
+
+                            <b:commandButton value="Submit" look="success" action="#{addItem.add}" colMd="6" offset="3" style="margin-top:20px"/>
+
                         </h:form>
 
                     </b:column>

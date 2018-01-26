@@ -31,9 +31,9 @@ ui-paginator-bottom{
 .datalist-noborder .ui-widget-content{
     border: none;
 }
-.ui-datalist-content ui-widget-content{
-    min-height:1000px;
-
+.ui-datalist-data {
+    height:800px;
+    overflow:auto;
 }
 .ui-widget-content{
     border: none;
@@ -41,3 +41,12 @@ ui-paginator-bottom{
 .buttonColor{
     background: #337ab7;
 }
+.panelGridStyle{
+    width: 100%;
+
+}
+.ui-panelgrid .ui-panelgrid-cell{
+    border-style: none;
+    border: none;
+}
+

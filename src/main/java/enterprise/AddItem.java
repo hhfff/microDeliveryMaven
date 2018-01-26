@@ -1,8 +1,5 @@
 package enterprise;
 
-import enterprise.Entity.EnterpriseDao;
-import enterprise.Entity.Item;
-
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
@@ -56,16 +53,4 @@ public class AddItem {
         this.pic = pic;
     }
 
-    public String add(){
-        EnterpriseDao e=new EnterpriseDao();
-        Item i=new Item();
-        i.setType(type);
-        i.setName(name);
-        i.setPicture(pic);
-        i.setDescrption(description);
-        i.setPrice(Double.parseDouble(price));
-        e.save(i);
-
-        return "/Enterprise/main";
-    }
 }

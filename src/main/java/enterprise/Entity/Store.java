@@ -15,31 +15,37 @@ import java.io.Serializable;
 
 @Named
 @Entity
-@Table(name="enterprise")
+@Table(name="store")
 @SessionScoped
-public class Company implements Serializable{
+public class Store implements Serializable{
     @Id
-    private String loginName;
+    @Column(name = "storeId")
+    private int id;
+    @Column(name = "storeName")
+    private String companyName;
+    @Column(name = "email")
+    private String email;
     @Column(name = "passwd")
     private String passwd;
-    @Column(name = "companyName")
-    private String companyName;
     @Column(name = "addr")
     private String addr;
+    @Column(name = "postal")
+    private String postalCode;
+    @Column(name = "storeType")
+    private String storeType;
     @Column(name = "phoneNo")
     private String phoneNo;
-    @Column(name = "postalCode")
-    private String postalCode;
-    public Company(){}
 
 
+    public Store(){}
 
-    public String getLoginName() {
-        return loginName;
+
+    public String getEmail() {
+        return email;
     }
 
-    public void setLoginName(String loginName) {
-        this.loginName = loginName;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPasswd() {
@@ -82,27 +88,20 @@ public class Company implements Serializable{
         this.postalCode = postalCode;
     }
 
-    public Company getCompanyDetail(){
-        Session session= HibernateUtil.getSessionFactory().openSession();
-        Transaction tx=null;
-        Company c=null;
-        try{
-            tx=session.beginTransaction();
+    public int getId() {
+        return id;
+    }
 
-            Criteria criteria=session.createCriteria(Company.class).add(Restrictions.eq("loginName",loginName));
-            c=(Company)criteria.uniqueResult();
-            tx.commit();
+    public void setId(int id) {
+        this.id = id;
+    }
 
+    public String getStoreType() {
+        return storeType;
+    }
 
-        }catch (HibernateException e){
-            if (tx!=null) tx.rollback();
-            e.printStackTrace();
-
-        }finally {
-            session.close();
-        }
-        return c;
-
+    public void setStoreType(String storeType) {
+        this.storeType = storeType;
     }
 
     @Override
