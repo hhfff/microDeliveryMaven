@@ -1,6 +1,7 @@
 package enterprise;
 
 import enterprise.Entity.Cart;
+import enterprise.Entity.CartItem;
 import enterprise.Entity.Item;
 import enterprise.Entity.StoreDao;
 
@@ -9,6 +10,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,7 +20,8 @@ import java.util.logging.Logger;
 @SessionScoped
 public class StoreDetail implements Serializable{
     private Cart cart=new Cart();
-    private String totalPrice;
+
+
 
 
     private List<Item> storeItems;
@@ -36,8 +39,6 @@ public class StoreDetail implements Serializable{
     }
     //cart
     public void addToCart(Item item){
-
-
         cart.addToCart(item);
     }
 
@@ -45,10 +46,6 @@ public class StoreDetail implements Serializable{
         return cart.getTotalPrice()+"";
     }
 
-    public void setTotalPrice(String totalPrice) {
-
-        this.totalPrice = totalPrice;
-    }
 
 
 
@@ -60,6 +57,7 @@ public class StoreDetail implements Serializable{
         this.storeItems = storeStoreItems;
     }
 
+
     public Cart getCart() {
         return cart;
     }
@@ -67,5 +65,12 @@ public class StoreDetail implements Serializable{
     public void setCart(Cart cart) {
         this.cart = cart;
     }
+
+    public String checkOut(){
+        return "checkout";
+    }
+
+
+
 
 }

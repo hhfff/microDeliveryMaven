@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Cart {
     private ArrayList<CartItem> orderItems;
+
     public Cart(){
         orderItems=new ArrayList<>();
     }
@@ -56,6 +57,8 @@ public class Cart {
 
     }
 
+
+
     public double getTotalPrice(){
         int sum=0;
         for(CartItem ct:orderItems){
@@ -66,5 +69,7 @@ public class Cart {
     public void reset(){
         orderItems.clear();
     }
+
+
 
 }

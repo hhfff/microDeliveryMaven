@@ -3,6 +3,8 @@ package enterprise.Entity;
 public class CartItem {
     private Item item;
     private int quantity;
+    private String itemTotalPrice;
+    private String QuantityAndItem;
 
     public CartItem(Item item,int quantity){
         this.quantity=quantity;
@@ -23,5 +25,12 @@ public class CartItem {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+    public String getQuantityAndItem(){
+
+        return quantity+" * "+item.getName();
+    }
+    public String getItemTotalPrice(){
+        return quantity*item.getPrice()+"";
     }
 }
