@@ -34,6 +34,7 @@ ui-paginator-bottom{
 .ui-datalist-data {
     height:800px;
     overflow:auto;
+    padding-left: 0px;
 }
 .ui-widget-content{
     border: none;
@@ -49,4 +50,5 @@ ui-paginator-bottom{
     border-style: none;
     border: none;
 }
+
 

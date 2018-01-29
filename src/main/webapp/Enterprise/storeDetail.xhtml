@@ -12,6 +12,7 @@
         <ui:define name="content">
             <f:metadata>
                 <f:event type="preRenderView" listener="#{storeDetail.loadStoreItem}"/>
+                <f:ajax execute=""></f:ajax>
             </f:metadata>
             <h:outputStylesheet library="css" name="uutil.css"  />
             <h:outputStylesheet library="css" name="storeDetail.css"  />
@@ -31,10 +32,6 @@
                                 <b:commandButton type="button" value="Add to cart" actionListener="#{storeDetail.addToCart(item)}"  style="float: right" update="cart"></b:commandButton>
                             </b:column>
                         </b:row>
-
-
-
-
                     </p:dataList>
 
                 </b:column>
@@ -58,6 +55,12 @@
 
 
                         </p:dataList>
+                        <b:row>
+                            <b:column colMd="3" offset="8">
+                                <b:commandButton type="button" value="Reset" actionListener="#{storeDetail.cart.reset}"  style="float: right" update="cart"></b:commandButton>
+                            </b:column>
+
+                        </b:row>
                         <hr/>
                         <b:row>
                             <b:column colMd="6">
@@ -68,7 +71,12 @@
                             </b:column>
 
                         </b:row>
-                        <b:commandButton type="button" action="#{storeDetail.checkOut}" value="Check out" style="width:100%"></b:commandButton>
+
+
+                        <h:form>
+                            <b:commandButton  action="checkout" value="Check out" style="width:100%"></b:commandButton>
+                        </h:form>
+
                     </b:panel>
                 </b:column>
                 <!--&lt;br /&gt;   escaped=false ->   breakline insert into outputtext-->

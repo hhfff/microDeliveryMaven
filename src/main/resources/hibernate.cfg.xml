@@ -54,5 +54,8 @@ Contributor(s):
     <!-- mapping resource="com/nyp/testing/Posting.hbm.xml"/-->
     <mapping class="enterprise.Entity.Item"/>
     <mapping class="enterprise.Entity.Store"/>
+    <mapping class="enterprise.Entity.Order"/>
+    <mapping class="enterprise.Entity.OrderItem"/>
+    <mapping class="enterprise.Entity.DeliveryAddress"/>
   </session-factory>
 </hibernate-configuration>

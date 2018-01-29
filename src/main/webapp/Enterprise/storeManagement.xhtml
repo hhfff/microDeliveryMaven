@@ -58,8 +58,8 @@
                                         style="border:none" id="datalist">
                                 <b:row style="border-bottom:1px solid #dddddd;padding:15px" >
                                     <b:column colMd="1">
-                                        <p:commandButton  icon="fa-trash-o" oncomplete="PF('itemDialog').show()"   value="Change">
-                                            <f:setPropertyActionListener value="#{item}" target="#{storeManagement.selectItem}" />
+                                        <p:commandButton actionListener="#{storeManagement.update(item)}" update="itemDetail" oncomplete="PF('itemDialog').show()"   value="Change">
+
                                         </p:commandButton>
                                     </b:column>
                                     <b:column colMd="10">
@@ -71,16 +71,15 @@
                                             <p><h:outputText value="#{item.description}" style="padding-top: 5px"/></p>
                                         </b:column>
                                         <b:column colMd="1">
-                                            <h:outputText value="$ #{item.price}" style="font-weight: bold"/>
+                                            <h:outputText value="$#{item.price}" style="font-weight: bold"/>
                                         </b:column>
 
                                     </b:column>
                                     <b:column colMd="1">
-                                        <p:commandButton icon="fa-trash-o" action="#{storeManagement.deleteItem}"   value="Delete" style="float: right">
+                                        <p:commandButton action="#{storeManagement.deleteItem}"   update="j_idt12:j_idt15:datalist" value="Delete" style="float: right">
                                             <f:setPropertyActionListener value="#{item}" target="#{storeManagement.selectItem}" />
                                             <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                                         </p:commandButton>
-
                                     </b:column>
                                 </b:row>
                                 <!--<p:panelGrid columns="2" styleClass="selectItemShadow" style="width: 90%;border: none;margin: 10px;padding-right: 10px" >
@@ -141,8 +140,8 @@
                             <p:outputLabel value="Description"></p:outputLabel>
                             <b:inputTextarea value="#{storeManagement.selectItem.description}" ></b:inputTextarea>
                         </p:panelGrid>
-                        <p:commandButton  onclick="PF('itemDialog').close()" value="Cancel"/>
-                        <p:commandButton  action="#{storeManagement.saveItem}"  value="Save"/>
+                        <p:commandButton  onclick="PF('itemDialog').hide()" value="Cancel"/>
+                        <p:commandButton  action="#{storeManagement.saveItem}" oncomplete="PF('itemDialog').hide()" update="j_idt12:j_idt15:datalist" value="Save"/>
 
                     </h:form>
                 </p:outputPanel>

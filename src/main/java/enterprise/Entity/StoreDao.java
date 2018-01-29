@@ -3,6 +3,7 @@ package enterprise.Entity;
 import com.nyp.microdelivery.posting.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import javax.naming.NamingException;
@@ -24,56 +25,42 @@ public class StoreDao {
         List<Item> list = session.createNativeQuery(query).addEntity(Item.class).list();
 
 
+
         session.close();
         return list;
 
     }
 
-    public void update(Item i){
+    public static void update(Item i){
 
-        String query="update  enterpriseItem set item_name='"+i.getName()+"',";
-        query+="description='"+i.getDescription()+"',";
-        query+="price="+i.getPrice()+",";
-        query+="item_type='"+i.getType()+"',";
-        query+="pic='"+i.getPicture()+"'";
-        query+=" where id="+i.getId();
-        javax.naming.InitialContext ctx = null;
-        ArrayList<Item> list=new ArrayList<>();
-        try {
-            ctx = new javax.naming.InitialContext();
-            javax.sql.DataSource ds = (javax.sql.DataSource)ctx.lookup("jdbc/microDelivery");
-            java.sql.Connection conn = ds.getConnection();
-            Statement s=conn.createStatement();
-            s.execute(query);
+        Session session=sessionFactory.openSession();
+        Transaction traction=session.beginTransaction();
+        session.update(i);
+        traction.commit();
+        session.close();
 
-            s.close();
-            conn.close();
 
-        } catch (NamingException e) {
-            e.printStackTrace();
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
     }
-    public void deleteItem(Item i){
+    public static void deleteItem(Item i){
+
 
 
         Session session=sessionFactory.openSession();
-        Query query=session.createQuery("delete Item where id=:itemid");
-        query.setParameter("itemid",i.getId());
+        Query query=session.createQuery("delete Item where id=:itemId");
+        query.setParameter("itemId",i.getId());
         session.beginTransaction();
         query.executeUpdate();
 
         session.close();
 
     }
-    public void save(Item i){
+    public static void save(Item i){
+        Logger logger=Logger.getLogger("xxxx");
+        logger.log(Level.INFO,"reset"+i.getId());
         Session session=sessionFactory.openSession();
         session.beginTransaction();
         session.save(i);
         session.getTransaction().commit();
-
-
         session.close();
     }
 
