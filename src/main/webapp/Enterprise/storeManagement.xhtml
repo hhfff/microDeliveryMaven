@@ -24,7 +24,36 @@
                 <h:form>
                     <b:tabView tabPosition="left"  id="tab">
                         <b:tab title="Orders">
-                            hello
+                            <p:dataList value="#{storeManagement.orders}" var="order" type="unordered" itemType="none"
+                                        style="border:none" id="orderList">
+                                <b:row>
+                                    <b:column colMd="10">
+                                        <b:panel styleClass="panelMaxHeight">
+                                            <f:facet name="heading">
+
+                                                <h:outputText value="Order No: #{order.orderId} " />
+                                                <h:outputText value="Total $#{order.totalInString}" style="padding-left: 20px"/>
+                                                <p:commandButton actionListener="#{storeManagement.orderComplete(order)}" update="j_idt12:j_idt13:orderList" value="Complete" style="margin-left-left: 30px">
+
+                                                </p:commandButton>
+                                            </f:facet>
+                                            <b:column colMd="9">
+                                                <!--<h:outputText value="#{order.orderItemsString}" style="font-weight: bold" escape="true"/>-->
+                                                <p:dataList value="#{order.orderItems}" var="orderItem" type="unordered" itemType="none"
+                                                            style="border:none">
+                                                    <h:outputText value="#{orderItem.itemInfo}"/>
+                                                </p:dataList>
+                                            </b:column>
+                                        </b:panel>
+                                    </b:column>
+
+                                </b:row>
+
+
+
+
+
+                            </p:dataList>
                         </b:tab>
                         <b:tab title="Manage Item">
 
@@ -76,7 +105,7 @@
 
                                     </b:column>
                                     <b:column colMd="1">
-                                        <p:commandButton action="#{storeManagement.deleteItem}"   update="j_idt12:j_idt15:datalist" value="Delete" style="float: right">
+                                        <p:commandButton action="#{storeManagement.deleteItem}"   value="Delete" style="float: right" update="j_idt12:j_idt24:datalist">
                                             <f:setPropertyActionListener value="#{item}" target="#{storeManagement.selectItem}" />
                                             <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                                         </p:commandButton>
@@ -141,7 +170,7 @@
                             <b:inputTextarea value="#{storeManagement.selectItem.description}" ></b:inputTextarea>
                         </p:panelGrid>
                         <p:commandButton  onclick="PF('itemDialog').hide()" value="Cancel"/>
-                        <p:commandButton  action="#{storeManagement.saveItem}" oncomplete="PF('itemDialog').hide()" update="j_idt12:j_idt15:datalist" value="Save"/>
+                        <p:commandButton  action="#{storeManagement.saveItem}"  update="j_idt12:j_idt24:datalist" oncomplete="PF('itemDialog').hide()"  value="Save"/>
 
                     </h:form>
                 </p:outputPanel>
