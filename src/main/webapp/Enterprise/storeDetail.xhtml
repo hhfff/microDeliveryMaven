@@ -6,26 +6,37 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
 <h:body>
     <ui:composition template="/templates/masterLayout.xhtml">
         <ui:define name="content">
             <f:metadata>
                 <f:event type="preRenderView" listener="#{storeDetail.loadStoreItem}"/>
-                <f:ajax execute=""></f:ajax>
             </f:metadata>
             <h:outputStylesheet library="css" name="uutil.css"  />
             <h:outputStylesheet library="css" name="storeDetail.css"  />
             <b:row styleClass="padHeader">
+                <b:column colMd="6" offset="4">
+                    <o:graphicImage value="#{storeDetail.qrCode}" dataURI="true" />
+                </b:column>
+            </b:row>
+            <b:row >
+
+
+
                 <b:column colMd="7" offset="2">
                     <p:dataList value="#{storeDetail.storeItems}" var="item" type="unordered" itemType="none" id="datalist">
                         <b:row style="border-bottom:1px solid #dddddd;padding:15px" >
                             <b:column colMd="2">
                                 <h:graphicImage value="/resources/images/icon/beer.png" rendered="#{item.picture !=''}" style="height: 150px;width: 200"/>
                             </b:column>
-                            <b:column colMd="8">
+                            <b:column colMd="7">
                                 <h:outputText value="#{item.name}" style="font-weight: bold"/>
                                 <p><h:outputText value="#{item.description}" style="padding-top: 5px"/></p>
+                            </b:column>
+                            <b:column colMd="1">
+                                <h:outputText value="$#{item.price}" style="font-weight: bold"/>
+
                             </b:column>
                             <b:column colMd="2">
 

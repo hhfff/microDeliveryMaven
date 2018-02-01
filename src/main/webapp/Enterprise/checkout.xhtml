@@ -61,7 +61,9 @@
                 <b:row>
                     <b:column colMd="1" offset="11">
                         <h:form>
-                            <b:commandButton  action="#{storeDetail.checkOut}" value="Check out"></b:commandButton>
+                            <b:commandButton  action="#{checkOut.checkOut}" value="Check out">
+                                <f:param name="orderId" value="#{checkOut.orderId}" />
+                            </b:commandButton>
                         </h:form>
                     </b:column>
                 </b:row>
