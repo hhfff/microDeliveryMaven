@@ -1,40 +1,38 @@
 package enterprise.Entity;
 
 import javax.inject.Named;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
-
-@Entity
 @Named
-@Table(name = "order")
+@Entity
+@Table(name = "orders")
 public class Order {
-    private ArrayList<OrderItem> orderItems;
+    @Transient
+    private List<OrderItem> orderItems;
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "orderId")
     private int orderId;
 
-    @Column(name = "datetime")
+    @Column(name = "orderDateTime", columnDefinition="DATETIME")
     private Date orderDate;
 
     @Column(name = "userId")
     private int userId;
 
-    @Column(name = "deliveryAddressId")
+    @Column(name = "addrId")
     private int deliveryAddressId;
 
-    public ArrayList<OrderItem> getOrderItems() {
-        return orderItems;
-    }
+    @Column(name="complete")
+    private int isComplete;
 
-    public void setOrderItems(ArrayList<OrderItem> orderItems) {
-        this.orderItems = orderItems;
-    }
+    @Column(name = "storeId")
+    private int storeId;
 
     public int getOrderId() {
         return orderId;
@@ -67,4 +65,43 @@ public class Order {
     public void setDeliveryAddressId(int deliveryAddressId) {
         this.deliveryAddressId = deliveryAddressId;
     }
+
+    public int getIsComplete() {
+        return isComplete;
+    }
+
+    public void setIsComplete(int isComplete) {
+        this.isComplete = isComplete;
+    }
+
+    public int getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(int storeId) {
+        this.storeId = storeId;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
+
+    public DeliveryAddress getAddress(){
+        return OrderDao.getAddress(deliveryAddressId);
+    }
+    public String getOrderItemsString(){
+        String s="";
+        for(OrderItem orderItem:orderItems) s+=orderItem.toString()+"\n";
+        return s;
+    }
+    public String getTotalInString(){
+        double total=0;
+        for(OrderItem orderItem:orderItems) total+=orderItem.getTotal();
+        return total+"";
+    }
+
 }

@@ -6,12 +6,20 @@ import enterprise.Entity.Item;
 import enterprise.Entity.StoreDao;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.imageio.ImageIO;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,6 +28,9 @@ import java.util.logging.Logger;
 @SessionScoped
 public class StoreDetail implements Serializable{
     private Cart cart=new Cart();
+    private int id;
+    private byte[] storeQr;
+
 
 
 
@@ -31,9 +42,14 @@ public class StoreDetail implements Serializable{
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 
         String storeId = request.getParameter("storeId");
-        Logger log= Logger.getLogger("xx");
-        log.log(Level.INFO,storeId+"size");
-        if(storeId!=null) storeItems =StoreDao.getAllItem(Integer.parseInt(storeId));
+
+
+        if(storeId!=null){
+            id=Integer.parseInt(storeId);
+            storeItems =StoreDao.getAllItem(id);
+        }
+
+        storeQr=getQrCode();
 
 
     }
@@ -70,7 +86,44 @@ public class StoreDetail implements Serializable{
         return "checkout";
     }
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
+    public byte[] getStoreQr() {
+        return storeQr;
+    }
 
+    public void setStoreQr(byte[] storeQr) {
+        this.storeQr = storeQr;
+    }
+
+    public byte[] getQrCode(){
+        ExternalContext externalContext=FacesContext.getCurrentInstance().getExternalContext();
+        String uri = ((HttpServletRequest) externalContext.getRequest()).getRequestURI();
+        Map<String, String> params =externalContext.getRequestParameterMap();
+        String id = params.get("storeId");
+        uri+="?storeId="+id;
+        QRCodeUtil qr=new QRCodeUtil();
+        System.out.print("hefei  "+ uri);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        InputStream iStream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/resources/images/mainIcon.png");
+
+        try {
+            Image logo=ImageIO.read(iStream);
+            ImageIO.write( qr.createQrCode(uri,logo), "jpg", baos );
+            baos.flush();
+            byte[] imageInByte = baos.toByteArray();
+            baos.close();
+            return imageInByte;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }

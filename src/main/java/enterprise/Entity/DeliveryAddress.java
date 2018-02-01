@@ -10,8 +10,8 @@ import javax.persistence.Table;
 @Table(name = "deliveryAddress")
 public class DeliveryAddress {
     @Id
-    @Column(name = "deliveryAddressId")
-    private int orderId;
+    @Column(name = "addrId")
+    private int addrId;
 
     @Column(name = "addr")
     private String addr;
@@ -22,13 +22,14 @@ public class DeliveryAddress {
     @Column(name = "userId")
     private int userId;
 
-    public int getOrderId() {
-        return orderId;
+    public int getAddrId() {
+        return addrId;
     }
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
+    public void setAddrId(int addrId) {
+        this.addrId = addrId;
     }
+
 
     public String getAddr() {
         return addr;

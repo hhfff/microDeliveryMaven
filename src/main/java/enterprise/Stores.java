@@ -1,8 +1,12 @@
 package enterprise;
 
 
+import com.nyp.microdelivery.posting.HibernateUtil;
+import enterprise.Entity.Order;
 import enterprise.Entity.Store;
 import enterprise.Entity.StoreDao;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -88,6 +92,7 @@ public class Stores implements Serializable{
     private  List<Store> storeList;
 
     public void load(){
+
 
         storeList =StoreDao.getAllComany();
 

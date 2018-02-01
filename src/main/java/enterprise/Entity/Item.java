@@ -19,7 +19,8 @@ public class Item {
     @Column(name = "itemType")
     private String type;
     @Column(name = "pic")
-    private String picture;
+    //private String picture;
+    private byte[] picture;
     @Column(name = "storeId")
     private int storeId;
 
@@ -68,11 +69,11 @@ public class Item {
         this.type = type;
     }
 
-    public String getPicture() {
+    public byte[] getPicture() {
         return picture;
     }
 
-    public void setPicture(String picture) {
+    public void setPicture(byte[] picture) {
         this.picture = picture;
     }
 

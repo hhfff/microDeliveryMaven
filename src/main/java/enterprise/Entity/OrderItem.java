@@ -2,16 +2,14 @@ package enterprise.Entity;
 
 
 import javax.inject.Named;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Named
 @Table(name = "orderItem")
 public class OrderItem {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
     @Column(name = "itemId")
@@ -20,9 +18,23 @@ public class OrderItem {
     @Column(name = "quantity")
     private int quantity;
 
+
+    @Column(name = "price")
+    private double price;
+
     @Column(name = "orderId")
     private int orderId;
 
+    @Transient
+    private String itemInfo;
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
 
     public int getId() {
         return id;
@@ -54,5 +66,18 @@ public class OrderItem {
 
     public void setOrderId(int orderId) {
         this.orderId = orderId;
+    }
+
+
+    public String getItemInfo() {
+        return quantity+" * "+StoreDao.getItem(itemId).getName()+"    $ "+getTotal();
+    }
+
+    public void setItemInfo(String itemInfo) {
+        this.itemInfo = itemInfo;
+    }
+
+    public double getTotal(){
+        return quantity*price;
     }
 }
