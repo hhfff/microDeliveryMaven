@@ -6,7 +6,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
 
 
 <h:head>
@@ -41,7 +41,7 @@
                         <p:dataList value="#{storeDetail.cart.orderItems}" var="cartItems" type="unordered" itemType="none" id="datalist">
                             <b:row style="border-bottom:1px solid #dddddd;padding:15px" >
                                 <b:column colMd="2">
-                                    <h:graphicImage value="/resources/images/icon/beer.png" rendered="#{cartItems.item.picture!=''}" style="height: 150px;width: 150"/>
+                                    <o:graphicImage value="#{cartItems.item.picture}" dataURI="true" rendered="#{cartItems.item.picture != null}" style="height: 150px;width: 150"/>
                                 </b:column>
                                 <b:column colMd="8" style="border-right:1px solid ">
                                     <h:outputText value="#{cartItems.item.name}" style="font-weight: bold"/>

@@ -36,6 +36,9 @@ public class Store implements Serializable{
     @Column(name = "phoneNo")
     private String phoneNo;
 
+    @Column(name="pic")
+    private byte[] picture;
+
 
     public Store(){}
 
@@ -62,6 +65,7 @@ public class Store implements Serializable{
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
+
     }
 
     public String getAddr() {
@@ -102,6 +106,15 @@ public class Store implements Serializable{
 
     public void setStoreType(String storeType) {
         this.storeType = storeType;
+    }
+
+    public byte[] getPicture() {
+        return picture;
+    }
+
+    public void setPicture(byte[] picture) {
+
+        this.picture = picture;
     }
 
     @Override

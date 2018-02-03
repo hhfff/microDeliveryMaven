@@ -70,14 +70,16 @@ public class StoreDao {
     public static void save(Item i){
 
 
+
+
         Session session=sessionFactory.openSession();
         session.beginTransaction();
-        session.save(i);
+        session.saveOrUpdate(i);
         session.getTransaction().commit();
         session.close();
     }
 
-    //  company
+    //  store
     public static List<Store> getAllComany(){
         Session session=sessionFactory.openSession();
         session.beginTransaction();
@@ -86,6 +88,25 @@ public class StoreDao {
         return list;
 
     }
+    public static Store getStoreInfo(int id){
+        Session session=sessionFactory.openSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(Store.class).add(Restrictions.eq("id",id));
+        Object result = criteria.uniqueResult();
+        session.close();
+
+        return (Store) result;
+
+    }
+    public static void saveStore(Store store){
+        Session session=sessionFactory.openSession();
+        session.beginTransaction();
+        session.saveOrUpdate(store);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+
 
 
 }

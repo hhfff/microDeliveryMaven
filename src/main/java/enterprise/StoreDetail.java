@@ -1,9 +1,6 @@
 package enterprise;
 
-import enterprise.Entity.Cart;
-import enterprise.Entity.CartItem;
-import enterprise.Entity.Item;
-import enterprise.Entity.StoreDao;
+import enterprise.Entity.*;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
@@ -30,6 +27,7 @@ public class StoreDetail implements Serializable{
     private Cart cart=new Cart();
     private int id;
     private byte[] storeQr;
+    private Store store;
 
 
 
@@ -47,9 +45,11 @@ public class StoreDetail implements Serializable{
         if(storeId!=null){
             id=Integer.parseInt(storeId);
             storeItems =StoreDao.getAllItem(id);
+            store=StoreDao.getStoreInfo(id);
         }
 
         storeQr=getQrCode();
+
 
 
     }
@@ -125,5 +125,13 @@ public class StoreDetail implements Serializable{
         }
 
         return null;
+    }
+
+    public Store getStore() {
+        return store;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
     }
 }

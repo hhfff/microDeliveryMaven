@@ -13,3 +13,9 @@ ui-paginator-bottom{
     background: none;
     border: none;
 }
+.thumbNailCss{
+    border:1px solid #ccc;
+    text-align: center;
+    width: 298px;
+    height: 234px;
+}

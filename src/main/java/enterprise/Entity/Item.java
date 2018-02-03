@@ -70,11 +70,16 @@ public class Item {
     }
 
     public byte[] getPicture() {
+
         return picture;
+
     }
 
     public void setPicture(byte[] picture) {
+
+
         this.picture = picture;
+
     }
 
     public int getStoreId() {

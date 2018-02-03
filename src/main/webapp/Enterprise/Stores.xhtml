@@ -6,7 +6,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
 <h:head>
 
 </h:head>
@@ -21,7 +21,7 @@
 
             <b:container>
                 <b:row>
-                    <b:column colMd="2" >
+                    <!--<b:column colMd="2" >
                         <b:panel  title="Static sidebar" id="cateLink" styleClass="padHeader">
                             <b:listLinks>
                                 <b:navLink header="Category" />
@@ -38,7 +38,7 @@
                             </b:listLinks>
                         </b:panel>
                         <p:sticky target="cateLink"/>
-                    </b:column>
+                    </b:column>-->
                     <b:column colMd="10" styleClass="padHeader">
 
                         <b:panel id="foodPanel">
@@ -48,17 +48,18 @@
                                         rows="4" paginator="true"
                                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} " paginatorPosition="bottom"
                                         style="margine-top:20px">
-                                <h:panelGroup style="border: 1px solid black">
-                                    <p:link outcome="storeDetail">
-                                        <f:param name="storeId" value="#{item.id}" />
-                                        <h:graphicImage value="resources/images/icon/beer.png" style="width: 100px;height: 100px"/>
-                                        <h:outputText value="#{item.companyName}"/>
-                                    </p:link>
-
-                                </h:panelGroup>
+                                <p:link outcome="storeDetail">
+                                    <f:param name="storeId" value="#{item.id}" />
+                                    <b:thumbnail styleClass="thumbNailCss">
+                                        <o:graphicImage value="#{item.picture}" dataURI="true" rendered="#{item.picture != null}" style="height: 150px;width: 150"/>
+                                        <f:facet name="caption">
+                                            <h3><h:outputText value="#{item.companyName}" /></h3>
+                                        </f:facet>
+                                    </b:thumbnail>
+                                </p:link>
                             </p:dataGrid>
                         </b:panel>
-                        <hr></hr>
+
                         <b:panel id="elecPanel">
                             <h3 style="margin: 0 auto">Beverage</h3>
                             <h:outputText value="No store available" rendered="#{stores.beverageList.size() ==0}"></h:outputText>
@@ -81,12 +82,12 @@
                                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} " paginatorPosition="bottom"
                                         style="margine-top:20px">
                                 <h:panelGroup style="border: 1px solid black">
-                                    <h:graphicImage value="resources/images/icon/beer.png" style="width: 100px;height: 100px"/>
+                                    <o:graphicImage value="resources/images/icon/beer.png" dataUri="true" style="width: 100px;height: 100px"/>
                                     <h:outputText value="#{item.companyName}"/>
                                 </h:panelGroup>
                             </p:dataGrid>
                         </b:panel>
-                        <hr></hr>
+
                         <b:panel id="groceryPanel">
                             <h3 style="margin: 0 auto">Grocery</h3>
                             <h:outputText value="No store available" rendered="#{stores.groceryList.size() ==0}"></h:outputText>
@@ -100,7 +101,7 @@
                                 </h:panelGroup>
                             </p:dataGrid>
                         </b:panel>
-                        <hr></hr>
+
                         <b:panel id="bookPanel">
                             <h3 style="margin: 0 auto">BOOK</h3>
                             <h:outputText value="No store available" rendered="#{stores.bookList.size() ==0}"></h:outputText>

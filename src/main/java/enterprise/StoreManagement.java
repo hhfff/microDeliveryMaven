@@ -3,40 +3,45 @@ package enterprise;
 import enterprise.Entity.*;
 import org.apache.commons.io.IOUtils;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @Named
 @SessionScoped
 public class StoreManagement implements Serializable{
-    private int storeId=1;
+
     private List<Item> itemList;
     private Item selectItem;
-    private boolean isNewItem=false;
+    private Store store;
+    private int storeId;
+    private Store saveStore;
+
     private List<Order> orders;
 
 
     public Item getSelectItem() {
+
         return selectItem;
     }
+
 
     public void setSelectItem(Item selectItem) {
         this.selectItem = selectItem;
     }
     public void load(){
-        int storeId=1;
-        selectItem=new Item();
+        storeId=4;
+        //selectItem=new Item();
+        store =StoreDao.getStoreInfo(storeId);
         itemList=StoreDao.getAllItem(storeId);
         List<Order> list=OrderDao.getAllUncompleteOrderByStore(storeId);
-
-
         orders=list;
 
     }
@@ -63,21 +68,15 @@ public class StoreManagement implements Serializable{
         StoreDao.deleteItem(selectItem);
     }
     public void resetSelectItem(ActionEvent event){
+        System.out.print("reseeeeeeet");
         selectItem=new Item();
-        isNewItem=true;
-
 
 
     }
     public String saveItem(){
-        if(isNewItem) {
-            selectItem.setStoreId(storeId);
+
+            selectItem.setStoreId(store.getId());
             StoreDao.save(selectItem);
-            isNewItem=false;
-        }
-        else{
-            StoreDao.update(selectItem);
-        }
         return null;
 
     }
@@ -89,21 +88,51 @@ public class StoreManagement implements Serializable{
 
     public void orderComplete(Order order){
         orders.remove(order);
-        Logger logger=Logger.getLogger("xx");
-        logger.log(Level.INFO,"size"+orders.size()+" "+order.getOrderId());
         OrderDao.completeOrder(order);
 
     }
-    public void imageUpload(FileUploadEvent event) {
-        Logger logger=Logger.getLogger("hefeiLogger");
-        logger.log(Level.INFO,event.getFile().getFileName());
+    public void handleFileUpload(FileUploadEvent event) {
+        UploadedFile file=event.getFile();
         try {
 
-            selectItem.setPicture(IOUtils.toByteArray(event.getFile().getInputstream()));
+            selectItem.setPicture(IOUtils.toByteArray(file.getInputstream()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void handleStoreImageUpload(FileUploadEvent event) {
+        UploadedFile file=event.getFile();
+        saveStore=new Store();
+
+        try {
+
+            saveStore.setPicture(IOUtils.toByteArray(file.getInputstream()));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
 
+    public String saveStore(){
+        saveStore.setId(store.getId());
+        saveStore.setCompanyName(store.getCompanyName());
+        saveStore.setAddr(store.getAddr());
+        saveStore.setEmail(store.getEmail());
+        saveStore.setPasswd(store.getPasswd());
+        saveStore.setPhoneNo(store.getPhoneNo());
+        saveStore.setPostalCode(store.getPostalCode());
+        saveStore.setStoreType(store.getStoreType());
+        store.setPicture(saveStore.getPicture());
+        System.out.print(saveStore.getPicture().length);
+        StoreDao.saveStore(saveStore);
+        return null;
+    }
+
+    public Store getStore() {
+        return store;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
+    }
 }
